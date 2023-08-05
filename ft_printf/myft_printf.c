@@ -5,6 +5,7 @@ void	put_string(char *string, int *length)
 {
 	if (!string)
 		string = "(null)";
+	
 	while (*string)
 		*length += write(1, string++, 1);
 }
@@ -41,10 +42,14 @@ int	ft_printf(const char *format, ...)
 				put_digit((long long int)va_arg(pointer, int), 10, &length);
 			else if (*format == 'x')
 				put_digit((long long int)va_arg(pointer, unsigned int), 16, &length);
+				// type va_arg(va_list ap, type);
+				// 上記先頭にtypeがある。
 			format++;
 		}
 		// else
-		上記前回の失敗、%% の場合上記の場合
+		// 上記前回の失敗、%% の場合上記の場合
+			// ２文字分のif分を作るのが正解、そうでなければ、
+			// が考慮されてなかった。
 			length += write(1, format, 1);
 		format++;
 	}
@@ -52,4 +57,7 @@ int	ft_printf(const char *format, ...)
 }
 
 
-// int main ()
+int main ()
+{
+	ft_printf("%%s", "abc");
+}
